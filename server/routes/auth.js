@@ -226,4 +226,111 @@ router.put('/profile', authMiddleware, async (req, res) => {
   }
 });
 
+// Forgot Password - Generate reset token
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+
+    // Find user by email
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      // Don't reveal if email exists for security reasons
+      return res.status(200).json({
+        success: true,
+        message: 'If an account exists with this email, you will receive a password reset link shortly.'
+      });
+    }
+
+    // Generate reset token (random 32-byte hex string)
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+    // Set token expiry to 1 hour from now
+    const resetTokenExpiry = new Date(Date.now() + 1 * 60 * 60 * 1000);
+
+    // Save token hash to database
+    user.resetToken = resetTokenHash;
+    user.resetTokenExpiry = resetTokenExpiry;
+    await user.save();
+
+    // Create reset URL with unhashed token
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:8080'}/reset-password?token=${resetToken}`;
+
+    // Send email
+    const emailTemplate = getPasswordResetEmailTemplate(user.name, resetUrl);
+    const emailResult = await sendEmail(
+      user.email,
+      '🔐 ShreeradheKrishnacollection - Password Reset Request',
+      emailTemplate
+    );
+
+    if (!emailResult.success) {
+      console.warn('⚠️ Password reset email failed to send:', emailResult.error);
+    }
+
+    // Always return success message for security
+    res.status(200).json({
+      success: true,
+      message: 'If an account exists with this email, you will receive a password reset link shortly.'
+    });
+  } catch (error) {
+    console.error('Forgot password error:', error);
+    res.status(500).json({ error: 'Failed to process password reset request' });
+  }
+});
+
+// Reset Password - Validate token and update password
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { token, password, confirmPassword } = req.body;
+
+    if (!token || !password || !confirmPassword) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: 'Passwords do not match' });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters' });
+    }
+
+    // Hash the token to compare with database
+    const resetTokenHash = crypto.createHash('sha256').update(token).digest('hex');
+
+    // Find user with valid reset token
+    const user = await User.findOne({
+      resetToken: resetTokenHash,
+      resetTokenExpiry: { $gt: new Date() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid or expired reset token' });
+    }
+
+    // Hash new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Update user password and clear reset token
+    user.password = hashedPassword;
+    user.resetToken = null;
+    user.resetTokenExpiry = null;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Password has been reset successfully. You can now login with your new password.'
+    });
+  } catch (error) {
+    console.error('Reset password error:', error);
+    res.status(500).json({ error: 'Failed to reset password' });
+  }
+});
+
 export default router;
