@@ -22,6 +22,7 @@ import collectionsRoutes from './routes/collections.js';
 import productSectionsRoutes from './routes/productSections.js';
 import sectionSettingsRoutes from './routes/sectionSettings.js';
 import filtersRoutes from './routes/filters.js';
+import inquiryRoutes from './routes/inquiry.js';
 import User from './models/User.js';
 import Contact from './models/Contact.js';
 import HeroMedia from './models/HeroMedia.js';
