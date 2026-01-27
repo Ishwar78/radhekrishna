@@ -94,7 +94,8 @@ const adminSections: SidebarItem[] = [
   { title: "Users", icon: Users, href: "/admin?tab=users" },
   { title: "Orders", icon: Package, href: "/admin?tab=orders" },
   { title: "Transactions", icon: BarChart3, href: "/admin?tab=transactions" },
-  { title: "Tickets", icon: Phone, href: "/admin?tab=tickets" },
+  { title: "Tickets", icon: Ticket, href: "/admin?tab=tickets" },
+  { title: "Inquiries", icon: MessageCircle, href: "/admin?tab=inquiries" },
   { title: "Contact", icon: Phone, href: "/admin?tab=contact" },
   { title: "Settings", icon: Settings, href: "/admin?tab=settings" },
 ];
