@@ -175,27 +175,27 @@ export default function HeroSlider() {
                 <>
                   <iframe
                     src={videoSource.embedUrl}
-                    className="absolute inset-0 w-full h-full object-cover transform origin-left md:skew-x-[-6deg] md:translate-x-12 scale-110"
+                    className="absolute inset-0 w-full h-full object-cover scale-110"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     frameBorder="0"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent md:skew-x-[-6deg] md:translate-x-12" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
                 </>
               ) : isVimeo && videoSource?.embedUrl ? (
                 <>
                   <iframe
                     src={videoSource.embedUrl}
-                    className="absolute inset-0 w-full h-full object-cover transform origin-left md:skew-x-[-6deg] md:translate-x-12 scale-110"
+                    className="absolute inset-0 w-full h-full object-cover scale-110"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     frameBorder="0"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent md:skew-x-[-6deg] md:translate-x-12" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
                 </>
               ) : isInstagram && videoSource?.embedUrl ? (
                 <>
-                  <div className="absolute inset-0 bg-background/50 flex items-center justify-center transform origin-left md:skew-x-[-6deg] md:translate-x-12">
+                  <div className="absolute inset-0 bg-background/30 flex items-center justify-center">
                     <iframe
                       src={videoSource.embedUrl}
                       className="w-full h-full max-w-md"
@@ -204,11 +204,11 @@ export default function HeroSlider() {
                       frameBorder="0"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent md:skew-x-[-6deg] md:translate-x-12" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
                 </>
               ) : isTikTok && videoSource?.embedUrl ? (
                 <>
-                  <div className="absolute inset-0 bg-background/50 flex items-center justify-center transform origin-left md:skew-x-[-6deg] md:translate-x-12">
+                  <div className="absolute inset-0 bg-background/30 flex items-center justify-center">
                     <iframe
                       src={videoSource.embedUrl}
                       className="w-full h-full"
@@ -216,7 +216,7 @@ export default function HeroSlider() {
                       frameBorder="0"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent md:skew-x-[-6deg] md:translate-x-12" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
                 </>
               ) : isHtml5Video && videoSource?.directUrl ? (
                 <>
@@ -229,17 +229,17 @@ export default function HeroSlider() {
                     onError={(e) => {
                       handleVideoError(e, String(videoSource?.directUrl || ''));
                     }}
-                    className="absolute inset-0 w-full h-full object-cover transform origin-left md:skew-x-[-6deg] md:translate-x-12 scale-110"
+                    className="absolute inset-0 w-full h-full object-cover scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent md:skew-x-[-6deg] md:translate-x-12" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
                 </>
               ) : (
                 <>
                   <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transform origin-left md:skew-x-[-6deg] md:translate-x-12 scale-110"
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
                     style={{ backgroundImage: `url(${mediaUrl})` }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent md:skew-x-[-6deg] md:translate-x-12" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
                 </>
               )}
             </div>
