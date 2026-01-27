@@ -473,6 +473,7 @@ export default {
   sendEmail,
   getSignupEmailTemplate,
   getSigninEmailTemplate,
+  getPasswordResetEmailTemplate,
   getOrderPlacedEmailTemplate,
   getOrderConfirmedEmailTemplate,
   getOrderShippedEmailTemplate,
