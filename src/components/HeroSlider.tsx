@@ -170,7 +170,7 @@ export default function HeroSlider() {
             )}
           >
             {/* Diagonal Media Container */}
-            <div className="absolute right-0 top-0 h-full w-full md:w-[65%] overflow-hidden">
+            <div className="absolute right-0 top-0 h-full w-full overflow-hidden">
               {isYouTube && videoSource?.embedUrl ? (
                 <>
                   <iframe
