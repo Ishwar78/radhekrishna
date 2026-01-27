@@ -340,6 +340,75 @@ export function getOrderShippedEmailTemplate(userName, orderId, trackingId, ship
 }
 
 /**
+ * Email template: Password Reset
+ */
+export function getPasswordResetEmailTemplate(userName, resetUrl) {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f7f4; }
+        .header { background-color: #7a2139; color: white; padding: 20px; text-align: center; border-radius: 5px; }
+        .content { background-color: white; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .footer { text-align: center; color: #666; font-size: 12px; padding: 10px; }
+        .alert { background-color: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; border-radius: 3px; margin: 15px 0; }
+        .button { background-color: #d4a574; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold; }
+        .link-text { color: #d4a574; word-break: break-all; font-size: 12px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>Password Reset Request</h1>
+        </div>
+
+        <div class="content">
+          <h2>Hello ${userName},</h2>
+
+          <p>We received a request to reset the password for your ShreeradheKrishnacollection account.</p>
+
+          <div class="alert">
+            <p><strong>⏰ Important:</strong> This link will expire in 1 hour. If you didn't request a password reset, please ignore this email.</p>
+          </div>
+
+          <p>Click the button below to reset your password:</p>
+
+          <p style="text-align: center; margin: 30px 0;">
+            <a href="${resetUrl}" class="button">Reset Password</a>
+          </p>
+
+          <p style="color: #666; font-size: 14px;">Or copy and paste this link in your browser:</p>
+          <p class="link-text">${resetUrl}</p>
+
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p style="font-size: 14px; color: #666;">
+              <strong>For your security:</strong>
+            </p>
+            <ul style="font-size: 14px; color: #666;">
+              <li>This link expires in 1 hour</li>
+              <li>Never share this link with anyone</li>
+              <li>If you didn't request this, your account is still secure</li>
+            </ul>
+          </div>
+
+          <p>If you need help, contact us at <strong>support@shreeradhekrishnacollection.com</strong></p>
+
+          <p style="margin-top: 30px;">Best regards,<br><strong>ShreeradheKrishnacollection Team</strong></p>
+        </div>
+
+        <div class="footer">
+          <p>© 2024 ShreeradheKrishnacollection - Premium Ethnic Fashion. All rights reserved.</p>
+          <p>This is an automated email, please do not reply to this address.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+/**
  * Email template: Order Delivered
  */
 export function getOrderDeliveredEmailTemplate(userName, orderId) {
