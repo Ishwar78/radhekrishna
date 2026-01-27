@@ -241,6 +241,7 @@ app.use('/api/offers', offersRoutes);
 app.use('/api/collections', collectionsRoutes);
 app.use('/api/product-sections', productSectionsRoutes);
 app.use('/api/section-settings', sectionSettingsRoutes);
+app.use('/api/inquiries', inquiryRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
