@@ -232,6 +232,18 @@ export default function Auth() {
                 </Button>
               </form>
 
+              {isLogin && (
+                <div className="mt-4 text-center">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/forgot-password")}
+                    className="text-sm text-primary font-medium hover:underline"
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
+              )}
+
               <div className="mt-6 text-center">
                 <p className="text-muted-foreground">
                   {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
