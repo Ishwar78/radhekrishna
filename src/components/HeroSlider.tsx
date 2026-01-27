@@ -118,15 +118,16 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="relative h-screen min-h-[600px] overflow-hidden bg-cream/50"
+      className="relative w-full h-screen min-h-[600px] overflow-hidden"
       style={{
         backgroundImage: `
-          linear-gradient(135deg, rgba(250,248,246,0.6) 0%, rgba(250,248,246,0.4) 100%),
+          linear-gradient(135deg, rgba(250,248,246,0.95) 0%, rgba(250,248,246,0.9) 100%),
           url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a574' fill-opacity='0.08'%3E%3Cpath d='M30 30c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z'/%3E%3Cpath d='M30 20c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z'/%3E%3Cpath d='M30 10c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0-2c0 .552.448 1 1 1s1-.448 1-1-.448-1-1-1-1 .448-1 1zM30 50c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm0 2c0-.552-.448-1-1-1s-1 .448-1 1 .448 1 1 1 1-.448 1-1zM10 30c0 1.105.895 2 2 2s2-.895 2-2-.895-2-2-2-2 .895-2 2zm2 0c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1zM50 30c0-1.105-.895-2-2-2s-2 .895-2 2 .895 2 2 2 2-.895 2-2zm-2 0c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
         `,
         backgroundSize: 'cover, 100px 100px',
         backgroundPosition: 'center, center',
-        backgroundRepeat: 'no-repeat, repeat'
+        backgroundRepeat: 'no-repeat, repeat',
+        backgroundAttachment: 'fixed'
       }}
     >
       {/* Background Slides */}
