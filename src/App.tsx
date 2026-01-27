@@ -91,6 +91,8 @@ const App = () => (
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/wishlist" element={<Wishlist />} />
                     <Route path="/auth" element={<Auth />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/dashboard" element={<UserDashboard />} />
                     <Route path="/orders" element={<OrderHistory />} />
                     <Route path="/vastra/admin" element={<AdminLogin />} />
