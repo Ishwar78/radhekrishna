@@ -24,6 +24,8 @@ import WinterWear from "./pages/WinterWear";
 import Contact from "./pages/Contact";
 import Wishlist from "./pages/Wishlist";
 import Auth from "./pages/Auth";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import OrderHistory from "./pages/OrderHistory";
 import UserDashboard from "./pages/UserDashboard";
 import AdminLogin from "./pages/AdminLogin";
