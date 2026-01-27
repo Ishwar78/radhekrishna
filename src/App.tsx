@@ -24,6 +24,8 @@ import WinterWear from "./pages/WinterWear";
 import Contact from "./pages/Contact";
 import Wishlist from "./pages/Wishlist";
 import Auth from "./pages/Auth";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import OrderHistory from "./pages/OrderHistory";
 import UserDashboard from "./pages/UserDashboard";
 import AdminLogin from "./pages/AdminLogin";
@@ -89,6 +91,8 @@ const App = () => (
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/wishlist" element={<Wishlist />} />
                     <Route path="/auth" element={<Auth />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/dashboard" element={<UserDashboard />} />
                     <Route path="/orders" element={<OrderHistory />} />
                     <Route path="/vastra/admin" element={<AdminLogin />} />

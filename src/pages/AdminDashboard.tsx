@@ -38,6 +38,7 @@ import AdminProductSectionManagement from "@/components/AdminProductSectionManag
 import AdminSectionSettingsManagement from "@/components/AdminSectionSettingsManagement";
 import AdminFilterManagement from "@/components/AdminFilterManagement";
 import AdminSidebarVideoManagement from "@/components/AdminSidebarVideoManagement";
+import AdminInquiryManagement from "@/components/AdminInquiryManagement";
 
 interface DashboardStats {
   totalUsers: number;
@@ -150,6 +151,7 @@ export default function AdminDashboard() {
     { value: 'users', label: 'Users' },
     { value: 'orders', label: 'Orders' },
     { value: 'tickets', label: 'Tickets' },
+    { value: 'inquiries', label: 'Inquiries' },
     { value: 'contact', label: 'Contact' },
     { value: 'settings', label: 'Settings' },
   ];
@@ -800,6 +802,11 @@ export default function AdminDashboard() {
             {/* Reviews Tab */}
             <TabsContent value="reviews" className="space-y-6">
               <AdminReviewManagement />
+            </TabsContent>
+
+            {/* Inquiries Tab */}
+            <TabsContent value="inquiries" className="space-y-6">
+              <AdminInquiryManagement />
             </TabsContent>
 
             {/* Contact Tab */}
