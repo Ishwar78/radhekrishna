@@ -804,6 +804,11 @@ export default function AdminDashboard() {
               <AdminReviewManagement />
             </TabsContent>
 
+            {/* Inquiries Tab */}
+            <TabsContent value="inquiries" className="space-y-6">
+              <AdminInquiryManagement />
+            </TabsContent>
+
             {/* Contact Tab */}
             <TabsContent value="contact" className="space-y-6">
               <AdminContactManagement />
