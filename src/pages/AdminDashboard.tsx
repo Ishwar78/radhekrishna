@@ -151,6 +151,7 @@ export default function AdminDashboard() {
     { value: 'users', label: 'Users' },
     { value: 'orders', label: 'Orders' },
     { value: 'tickets', label: 'Tickets' },
+    { value: 'inquiries', label: 'Inquiries' },
     { value: 'contact', label: 'Contact' },
     { value: 'settings', label: 'Settings' },
   ];
