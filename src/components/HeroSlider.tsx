@@ -248,9 +248,9 @@ export default function HeroSlider() {
       })}
 
       {/* Content */}
-      <div className="relative z-10 h-full container mx-auto px-4">
+      <div className="relative z-10 h-full w-full px-4 sm:px-6 lg:px-8">
         <div className="h-full flex items-center">
-          <div className="max-w-xl">
+          <div className="max-w-2xl">
             {slides.map((slide, index) => (
               <div
                 key={index}
