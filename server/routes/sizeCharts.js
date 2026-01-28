@@ -24,6 +24,12 @@ router.get('/product/:productId', async (req, res) => {
       });
     }
 
+    // Log what's being returned
+    console.log(`Returning size chart with ${sizeChart.sizes?.length || 0} sizes and ${sizeChart.chartImage ? 'image' : 'no image'}`);
+    if (sizeChart.chartImage) {
+      console.log(`Image size: ${sizeChart.chartImage.length} bytes`);
+    }
+
     res.json({
       success: true,
       sizeChart
