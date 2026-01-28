@@ -25,7 +25,14 @@ const FloatingSidebarVideo = () => {
     const fetchVideo = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${API_URL}/sidebar-videos`);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+
+        const response = await fetch(`${API_URL}/sidebar-videos`, {
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
           setIsLoading(false);
@@ -50,7 +57,10 @@ const FloatingSidebarVideo = () => {
           }
         }
       } catch (error) {
-        console.error('Error fetching sidebar video:', error);
+        // Silently fail for abort/timeout or network errors
+        if (error instanceof Error && error.name !== 'AbortError') {
+          console.debug('Sidebar video fetch failed:', error instanceof Error ? error.message : error);
+        }
       } finally {
         setIsLoading(false);
       }
