@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, Edit, Trash2, FolderTree, Layers, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, FolderTree, Layers, Loader2, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
 
