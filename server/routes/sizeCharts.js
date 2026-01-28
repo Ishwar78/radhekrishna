@@ -24,6 +24,12 @@ router.get('/product/:productId', async (req, res) => {
       });
     }
 
+    // Log what's being returned
+    console.log(`Returning size chart with ${sizeChart.sizes?.length || 0} sizes and ${sizeChart.chartImage ? 'image' : 'no image'}`);
+    if (sizeChart.chartImage) {
+      console.log(`Image size: ${sizeChart.chartImage.length} bytes`);
+    }
+
     res.json({
       success: true,
       sizeChart
@@ -38,12 +44,17 @@ router.get('/product/:productId', async (req, res) => {
 router.post('/product/:productId', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const { productId: productIdParam } = req.params;
-    const { sizes, unit } = req.body;
+    const { sizes, unit, chartImage } = req.body;
 
     // Convert string to ObjectId if valid
     const productId = mongoose.Types.ObjectId.isValid(productIdParam)
       ? new mongoose.Types.ObjectId(productIdParam)
       : productIdParam;
+
+    // Log image data for debugging
+    if (chartImage) {
+      console.log(`Size chart image received: ${chartImage.substring(0, 50)}... (length: ${chartImage.length})`);
+    }
 
     let sizeChart = await SizeChart.findOne({ productId });
 
@@ -51,6 +62,7 @@ router.post('/product/:productId', authMiddleware, adminMiddleware, async (req, 
       // Update existing
       sizeChart.sizes = sizes;
       if (unit) sizeChart.unit = unit;
+      if (chartImage !== undefined) sizeChart.chartImage = chartImage;
       sizeChart.updatedAt = new Date();
       await sizeChart.save();
     } else {
@@ -58,10 +70,14 @@ router.post('/product/:productId', authMiddleware, adminMiddleware, async (req, 
       sizeChart = new SizeChart({
         productId,
         sizes,
-        unit: unit || 'cm'
+        unit: unit || 'cm',
+        chartImage: chartImage || null
       });
       await sizeChart.save();
     }
+
+    // Log what's being returned
+    console.log(`Size chart saved with ${sizeChart.sizes.length} sizes and ${sizeChart.chartImage ? 'image' : 'no image'}`);
 
     res.json({
       success: true,

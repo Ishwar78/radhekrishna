@@ -82,11 +82,21 @@ export default function SizeChartDisplay({ productId }: SizeChartDisplayProps) {
           {sizeChart.chartImage && (
             <div className="space-y-2">
               <h3 className="font-semibold text-lg">Size Chart Image</h3>
-              <img
-                src={sizeChart.chartImage}
-                alt="Size Chart"
-                className="w-full rounded-lg border border-border"
-              />
+              <div className="w-full rounded-lg border border-border overflow-hidden bg-muted/50">
+                <img
+                  src={sizeChart.chartImage}
+                  alt="Size Chart"
+                  className="w-full h-auto object-contain"
+                  onError={(e) => {
+                    console.error('Error loading size chart image');
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                  onLoad={() => {
+                    console.log('Size chart image loaded successfully');
+                  }}
+                />
+              </div>
             </div>
           )}
 

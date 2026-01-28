@@ -180,7 +180,7 @@ const AdminCategoryManagement = () => {
       name: category.name,
       slug: category.slug,
       description: category.description,
-      parentId: category.parentId || "",
+      parentId: category.parentId ? category.parentId : "",
       image: category.image,
       isActive: category.isActive
     });
@@ -230,7 +230,11 @@ const AdminCategoryManagement = () => {
           'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          ...category,
+          name: category.name,
+          slug: category.slug,
+          description: category.description,
+          parentId: category.parentId || null,
+          image: category.image,
           isActive: !category.isActive,
         }),
       });
@@ -301,9 +305,9 @@ const AdminCategoryManagement = () => {
               
               <div className="space-y-2">
                 <Label htmlFor="parent">Parent Category</Label>
-                <Select 
-                  value={formData.parentId} 
-                  onValueChange={(value) => setFormData({ ...formData, parentId: value })}
+                <Select
+                  value={formData.parentId || ""}
+                  onValueChange={(value) => setFormData({ ...formData, parentId: value || "" })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select parent (optional)" />
@@ -311,9 +315,12 @@ const AdminCategoryManagement = () => {
                   <SelectContent>
                     <SelectItem value="">None (Top Level)</SelectItem>
                     {parentCategories
-                      .filter(cat => cat.id !== editingCategory?.id)
+                      .filter(cat => {
+                        if (!editingCategory) return true;
+                        return cat._id !== editingCategory._id && cat.id !== editingCategory.id;
+                      })
                       .map(cat => (
-                        <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
+                        <SelectItem key={cat._id} value={cat._id}>{cat.name}</SelectItem>
                       ))
                     }
                   </SelectContent>
