@@ -556,7 +556,7 @@ const MediaShowcase = () => {
             </div>
           </div>
 
-          {/* Navigation Buttons */}
+          {/* Navigation Buttons - Desktop */}
           <button
             onClick={scrollPrev}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-50 -translate-x-16 hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
@@ -571,6 +571,23 @@ const MediaShowcase = () => {
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5" />
+          </button>
+
+          {/* Navigation Buttons - Mobile */}
+          <button
+            onClick={scrollPrev}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-50 lg:hidden flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary/90 text-primary-foreground hover:bg-primary transition-colors shadow-lg"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+
+          <button
+            onClick={scrollNext}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-50 lg:hidden flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary/90 text-primary-foreground hover:bg-primary transition-colors shadow-lg"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
           {/* Dots Navigation */}
