@@ -243,6 +243,7 @@ app.use('/api/collections', collectionsRoutes);
 app.use('/api/product-sections', productSectionsRoutes);
 app.use('/api/section-settings', sectionSettingsRoutes);
 app.use('/api/inquiries', inquiryRoutes);
+app.use('/api/chatbot-settings', chatbotSettingsRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
