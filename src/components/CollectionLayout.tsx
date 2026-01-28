@@ -148,20 +148,20 @@ export default function CollectionLayout({
                   <div className="mb-8">
                     <h4 className="font-medium mb-4">Size</h4>
                     <div className="flex flex-wrap gap-2">
-                      {sizes.map((size) => (
+                      {filters.sizes.map((size) => (
                         <button
-                          key={size}
+                          key={size.id}
                           onClick={() => setSelectedSizes((prev) =>
-                            prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
+                            prev.includes(size.name) ? prev.filter((s) => s !== size.name) : [...prev, size.name]
                           )}
                           className={cn(
                             "h-10 w-12 rounded border text-sm font-medium transition-all",
-                            selectedSizes.includes(size)
+                            selectedSizes.includes(size.name)
                               ? "border-primary bg-primary text-primary-foreground"
                               : "border-border hover:border-primary"
                           )}
                         >
-                          {size}
+                          {size.name}
                         </button>
                       ))}
                     </div>
