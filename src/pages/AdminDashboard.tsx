@@ -771,6 +771,8 @@ export default function AdminDashboard() {
                                     ? 'bg-red-100 text-red-800'
                                     : order.status === 'shipped'
                                     ? 'bg-purple-100 text-purple-800'
+                                    : order.status === 'pending'
+                                    ? 'bg-orange-100 text-orange-800'
                                     : 'bg-blue-100 text-blue-800'
                                 }`}>
                                   {order.status}
