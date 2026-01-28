@@ -306,14 +306,13 @@ const AdminCategoryManagement = () => {
               <div className="space-y-2">
                 <Label htmlFor="parent">Parent Category</Label>
                 <Select
-                  value={formData.parentId || ""}
-                  onValueChange={(value) => setFormData({ ...formData, parentId: value || "" })}
+                  value={formData.parentId}
+                  onValueChange={(value) => setFormData({ ...formData, parentId: value })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select parent (optional)" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">None (Top Level)</SelectItem>
                     {parentCategories
                       .filter(cat => {
                         if (!editingCategory) return true;
