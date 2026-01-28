@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +9,17 @@ interface Message {
   timestamp: Date;
 }
 
+interface ChatbotSettings {
+  businessName: string;
+  welcomeMessage: string;
+  supportEmail: string;
+  supportPhone: string;
+  whatsappNumber: string;
+  genericReply: string;
+  storeHours: string;
+  isActive: boolean;
+}
+
 const QuickQuestions = [
   { label: "Store timing?", reply: "Our store is open Monday to Saturday, 10:00 AM - 7:00 PM. Sunday is closed. You can shop online 24/7!" },
   { label: "Delivery charges?", reply: "We offer free delivery on orders above ₹999. Standard delivery takes 5-7 business days. Express delivery is also available." },
@@ -17,10 +28,8 @@ const QuickQuestions = [
   { label: "How to track my order?", reply: "Once your order is shipped, you'll receive a tracking link via email and SMS. You can track your order in real-time." },
   { label: "Do you have size guides?", reply: "Yes! We have detailed size guides for all products. Check the size chart on each product page to find your perfect fit." },
   { label: "Can I cancel my order?", reply: "You can cancel your order within 24 hours of placement. After that, if the order has been shipped, you can return it." },
-  { label: "Bulk orders?", reply: "Yes, we offer special discounts on bulk orders. Please contact our support team at support@vasstra.com for bulk inquiries." },
+  { label: "Bulk orders?", reply: "Yes, we offer special discounts on bulk orders. Please contact our support team for bulk inquiries." },
 ];
-
-const WelcomeMessage = "Namaste! 🙏 Welcome to Shree Balaji Vastralaya. I'm here to help you with any questions about our products, delivery, or orders. Choose one of the quick questions below or type your message!";
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
