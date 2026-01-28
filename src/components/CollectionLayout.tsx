@@ -42,6 +42,7 @@ export default function CollectionLayout({
   bannerBgColor,
   bannerTextColor,
 }: CollectionLayoutProps) {
+  const { filters } = useFilters();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [gridCols, setGridCols] = useState<3 | 4>(4);
   const [priceRange, setPriceRange] = useState([0, 20000]);
