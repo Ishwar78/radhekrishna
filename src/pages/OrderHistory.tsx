@@ -347,6 +347,13 @@ export default function OrderHistory() {
                     <p className="font-medium text-foreground">
                       {selectedOrder.paymentMethod ? selectedOrder.paymentMethod.split('_').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : 'Not specified'}
                     </p>
+                    {/* Transaction ID for UPI */}
+                    {selectedOrder.paymentMethod === 'upi' && selectedOrder.paymentDetails?.transactionId && (
+                      <div className="mt-3 pt-3 border-t border-border">
+                        <p className="text-xs text-muted-foreground font-medium mb-2">TRANSACTION ID</p>
+                        <p className="font-mono font-semibold text-foreground break-all">{selectedOrder.paymentDetails.transactionId}</p>
+                      </div>
+                    )}
                   </div>
                   {selectedOrder.trackingId && (
                     <div>
