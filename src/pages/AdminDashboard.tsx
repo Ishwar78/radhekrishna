@@ -991,6 +991,14 @@ export default function AdminDashboard() {
                       <p className="font-semibold text-lg">₹{selectedOrder.totalAmount?.toLocaleString()}</p>
                     </div>
                   </div>
+
+                  {/* Transaction ID for UPI */}
+                  {selectedOrder.paymentMethod === 'upi' && selectedOrder.paymentDetails?.transactionId && (
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <p className="text-muted-foreground text-xs font-medium mb-2">TRANSACTION ID *</p>
+                      <p className="font-mono font-semibold text-foreground break-all">{selectedOrder.paymentDetails.transactionId}</p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Order Items */}
