@@ -9,25 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { normalizeProduct } from "@/lib/normalizeProduct";
+import { useFilters } from "@/hooks/useFilters";
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 const defaultCategories = ["All", "Ethnic Wear", "Western Wear"];
-const sizes = ["S", "M", "L", "XL", "XXL", "XXXL", "Free Size"];
-const colors = [
-  { name: "Burgundy", hex: "#722F37" },
-  { name: "Blue", hex: "#1E3A8A" },
-  { name: "Pink", hex: "#EC4899" },
-  { name: "Green", hex: "#059669" },
-  { name: "Maroon", hex: "#800000" },
-  { name: "Ivory", hex: "#FFFFF0" },
-  { name: "Teal", hex: "#0D9488" },
-  { name: "Orange", hex: "#EA580C" },
-  { name: "Red", hex: "#DC2626" },
-  { name: "White", hex: "#FFFFFF" },
-  { name: "Black", hex: "#000000" },
-  { name: "Gold", hex: "#FBBF24" },
-];
 
 const sortOptions = [
   { label: "Featured", value: "featured" },
