@@ -45,6 +45,11 @@ router.post('/product/:productId', authMiddleware, adminMiddleware, async (req, 
       ? new mongoose.Types.ObjectId(productIdParam)
       : productIdParam;
 
+    // Log image data for debugging
+    if (chartImage) {
+      console.log(`Size chart image received: ${chartImage.substring(0, 50)}... (length: ${chartImage.length})`);
+    }
+
     let sizeChart = await SizeChart.findOne({ productId });
 
     if (sizeChart) {
@@ -64,6 +69,9 @@ router.post('/product/:productId', authMiddleware, adminMiddleware, async (req, 
       });
       await sizeChart.save();
     }
+
+    // Log what's being returned
+    console.log(`Size chart saved with ${sizeChart.sizes.length} sizes and ${sizeChart.chartImage ? 'image' : 'no image'}`);
 
     res.json({
       success: true,
