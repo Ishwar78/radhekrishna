@@ -174,6 +174,57 @@ const AdminCategoryManagement = () => {
     setIsDialogOpen(false);
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error("Please upload an image file");
+      return;
+    }
+
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("File size must be less than 2MB");
+      return;
+    }
+
+    try {
+      // Convert file to base64
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target?.result as string;
+
+        // Compress image using canvas if it's larger than 500KB
+        if (base64.length > 500 * 1024) {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            // Reduce dimensions by 60% for thumbnails
+            canvas.width = img.width * 0.6;
+            canvas.height = img.height * 0.6;
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+            setFormData({ ...formData, image: compressedBase64 });
+            toast.success("Image uploaded and compressed");
+          };
+          img.src = base64;
+        } else {
+          setFormData({ ...formData, image: base64 });
+          toast.success("Image uploaded successfully");
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      toast.error("Failed to upload image");
+    }
+  };
+
   const handleEdit = (category: Category) => {
     setEditingCategory(category);
     setFormData({
