@@ -253,9 +253,12 @@ export function handleVideoError(e: Event, url?: string | null): void {
     safeUrl = 'No valid URL provided';
   }
 
-  console.error('Video load error:', errorMessage, {
-    url: safeUrl,
-    code: target.error?.code,
-    videoElement: target.currentSrc || 'No source',
-  });
+  // Only log if we have actual error info to avoid console noise
+  if (target.error?.code) {
+    console.warn('Video load error:', errorMessage, {
+      url: safeUrl,
+      code: target.error?.code,
+      videoElement: target.currentSrc || 'No source',
+    });
+  }
 }
