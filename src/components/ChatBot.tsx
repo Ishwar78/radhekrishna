@@ -167,7 +167,7 @@ export default function ChatBot() {
         <div className="fixed bottom-40 right-6 w-96 bg-white rounded-lg shadow-2xl flex flex-col z-40 max-h-[600px] animate-in fade-in slide-in-from-bottom-4 duration-300">
           {/* Chat Header */}
           <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-4 rounded-t-lg">
-            <h3 className="font-semibold text-lg">Shree Balaji Vastralaya</h3>
+            <h3 className="font-semibold text-lg">{settings?.businessName || 'Shree RadheKrishna Collection'}</h3>
             <p className="text-xs text-emerald-100">Usually replies instantly</p>
           </div>
 
