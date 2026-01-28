@@ -229,7 +229,7 @@ export default function ChatBot() {
             <div className="px-4 py-3 bg-white border-t border-gray-200">
               <p className="text-xs font-semibold text-gray-700 mb-2">Quick questions:</p>
               <div className="grid grid-cols-2 gap-2">
-                {QuickQuestions.map((q, idx) => (
+                {getQuickQuestions(settings).map((q, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleQuickQuestion(q.label, q.reply)}
