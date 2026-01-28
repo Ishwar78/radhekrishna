@@ -75,23 +75,6 @@ function ProductCard({ product, index }: ProductCardProps) {
               loading="lazy"
             />
 
-            <div className="absolute top-3 left-3 flex flex-col gap-2">
-              {discount > 0 && (
-                <span className="bg-destructive text-destructive-foreground text-xs font-bold px-2 py-1 rounded">
-                  -{discount}%
-                </span>
-              )}
-              {product.isNew && (
-                <span className="bg-gold text-charcoal text-xs font-bold px-2 py-1 rounded">
-                  NEW
-                </span>
-              )}
-              {product.isBestseller && (
-                <span className="bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded">
-                  BESTSELLER
-                </span>
-              )}
-            </div>
 
             <div className={cn(
               "absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300",
