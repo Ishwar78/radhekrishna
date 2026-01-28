@@ -10,7 +10,8 @@ import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
-import { Product, sizes, colors, sortOptions } from "@/data/products";
+import { Product, sortOptions } from "@/data/products";
+import { useFilters } from "@/hooks/useFilters";
 
 interface CollectionLayoutProps {
   title: string;
