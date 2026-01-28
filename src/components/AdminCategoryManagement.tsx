@@ -305,9 +305,9 @@ const AdminCategoryManagement = () => {
               
               <div className="space-y-2">
                 <Label htmlFor="parent">Parent Category</Label>
-                <Select 
-                  value={formData.parentId} 
-                  onValueChange={(value) => setFormData({ ...formData, parentId: value })}
+                <Select
+                  value={formData.parentId || ""}
+                  onValueChange={(value) => setFormData({ ...formData, parentId: value || "" })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select parent (optional)" />
