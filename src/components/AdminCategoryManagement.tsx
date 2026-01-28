@@ -391,29 +391,67 @@ const AdminCategoryManagement = () => {
               <div className="space-y-2">
                 <Label htmlFor="image">Category Image</Label>
                 <div className="space-y-3">
-                  <Input
-                    id="image"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="https://example.com/image.jpg"
-                    type="url"
-                  />
-                  {formData.image && (
-                    <div className="relative w-full h-40 rounded-lg overflow-hidden border border-border bg-muted/50">
-                      <img
-                        src={formData.image}
-                        alt="Category preview"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                        }}
-                      />
-                    </div>
-                  )}
-                  <p className="text-xs text-muted-foreground">
-                    Paste image URL (PNG, JPG, JPEG) - images will be displayed as circular collections
-                  </p>
+                  {/* Upload Section */}
+                  <div className="border-2 border-dashed rounded-lg p-4 text-center">
+                    {formData.image ? (
+                      <div className="space-y-2">
+                        <div className="relative w-full h-40 rounded-lg overflow-hidden border border-border bg-muted/50">
+                          <img
+                            src={formData.image}
+                            alt="Category preview"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                            }}
+                          />
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setFormData({ ...formData, image: "" })}
+                        >
+                          <X className="h-4 w-4 mr-2" />
+                          Remove Image
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <Upload className="h-8 w-8 mx-auto text-muted-foreground" />
+                        <Label htmlFor="category-image" className="cursor-pointer">
+                          <span className="text-sm font-medium text-primary hover:underline">
+                            Click to upload
+                          </span>
+                          <span className="text-xs text-muted-foreground"> or drag and drop</span>
+                        </Label>
+                        <p className="text-xs text-muted-foreground">
+                          PNG, JPG, GIF up to 2MB
+                        </p>
+                        <Input
+                          id="category-image"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleImageUpload}
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* URL Input (Optional) */}
+                  <div className="pt-2 border-t">
+                    <Label htmlFor="image-url" className="text-xs text-muted-foreground mb-2 block">
+                      Or paste image URL (optional)
+                    </Label>
+                    <Input
+                      id="image-url"
+                      value={formData.image.startsWith('http') ? formData.image : ""}
+                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                      placeholder="https://example.com/image.jpg"
+                      type="url"
+                    />
+                  </div>
                 </div>
               </div>
               
