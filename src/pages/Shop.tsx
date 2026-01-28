@@ -39,6 +39,7 @@ interface Product {
 
 export default function Shop() {
   const [searchParams] = useSearchParams();
+  const { filters, isLoading: isFiltersLoading } = useFilters();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
