@@ -129,9 +129,10 @@ export default function ChatBot() {
     // Simulate bot thinking and send a generic response
     setIsLoading(true);
     setTimeout(() => {
+      const reply = settings?.genericReply?.replace('{email}', settings?.supportEmail || 'support@vasstra.com').replace('{whatsapp}', `WhatsApp ${settings?.supportPhone || '+91 98765 43210'}`) || 'Thanks for your message! Our team will get back to you shortly.';
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Thanks for your message! Our team will get back to you shortly. For immediate assistance, please contact us at support@vasstra.com or WhatsApp +91 98765 43210.",
+        text: reply,
         sender: "bot",
         timestamp: new Date(),
       };
