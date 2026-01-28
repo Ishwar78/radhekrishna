@@ -9,25 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { normalizeProduct } from "@/lib/normalizeProduct";
+import { useFilters } from "@/hooks/useFilters";
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 const defaultCategories = ["All", "Ethnic Wear", "Western Wear"];
-const sizes = ["S", "M", "L", "XL", "XXL", "XXXL", "Free Size"];
-const colors = [
-  { name: "Burgundy", hex: "#722F37" },
-  { name: "Blue", hex: "#1E3A8A" },
-  { name: "Pink", hex: "#EC4899" },
-  { name: "Green", hex: "#059669" },
-  { name: "Maroon", hex: "#800000" },
-  { name: "Ivory", hex: "#FFFFF0" },
-  { name: "Teal", hex: "#0D9488" },
-  { name: "Orange", hex: "#EA580C" },
-  { name: "Red", hex: "#DC2626" },
-  { name: "White", hex: "#FFFFFF" },
-  { name: "Black", hex: "#000000" },
-  { name: "Gold", hex: "#FBBF24" },
-];
 
 const sortOptions = [
   { label: "Featured", value: "featured" },
@@ -53,6 +39,7 @@ interface Product {
 
 export default function Shop() {
   const [searchParams] = useSearchParams();
+  const { filters, isLoading: isFiltersLoading } = useFilters();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -292,20 +279,20 @@ export default function Shop() {
                   <div className="mb-8">
                     <h4 className="font-medium mb-4">Size</h4>
                     <div className="flex flex-wrap gap-2">
-                      {sizes.map((size) => (
+                      {filters.sizes.map((size) => (
                         <button
-                          key={size}
+                          key={size.id}
                           onClick={() => setSelectedSizes((prev) =>
-                            prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
+                            prev.includes(size.name) ? prev.filter((s) => s !== size.name) : [...prev, size.name]
                           )}
                           className={cn(
                             "h-10 w-12 rounded border text-sm font-medium transition-all",
-                            selectedSizes.includes(size)
+                            selectedSizes.includes(size.name)
                               ? "border-primary bg-primary text-primary-foreground"
                               : "border-border hover:border-primary"
                           )}
                         >
-                          {size}
+                          {size.name}
                         </button>
                       ))}
                     </div>
@@ -315,9 +302,9 @@ export default function Shop() {
                   <div className="mb-8">
                     <h4 className="font-medium mb-4">Color</h4>
                     <div className="flex flex-wrap gap-2">
-                      {colors.map((color) => (
+                      {filters.colors.map((color) => (
                         <button
-                          key={color.name}
+                          key={color.id}
                           onClick={() => setSelectedColors((prev) =>
                             prev.includes(color.name) ? prev.filter((c) => c !== color.name) : [...prev, color.name]
                           )}

@@ -10,7 +10,8 @@ import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
-import { Product, sizes, colors, sortOptions } from "@/data/products";
+import { Product, sortOptions } from "@/data/products";
+import { useFilters } from "@/hooks/useFilters";
 
 interface CollectionLayoutProps {
   title: string;
@@ -41,6 +42,7 @@ export default function CollectionLayout({
   bannerBgColor,
   bannerTextColor,
 }: CollectionLayoutProps) {
+  const { filters } = useFilters();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [gridCols, setGridCols] = useState<3 | 4>(4);
   const [priceRange, setPriceRange] = useState([0, 20000]);
@@ -146,20 +148,20 @@ export default function CollectionLayout({
                   <div className="mb-8">
                     <h4 className="font-medium mb-4">Size</h4>
                     <div className="flex flex-wrap gap-2">
-                      {sizes.map((size) => (
+                      {filters.sizes.map((size) => (
                         <button
-                          key={size}
+                          key={size.id}
                           onClick={() => setSelectedSizes((prev) =>
-                            prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
+                            prev.includes(size.name) ? prev.filter((s) => s !== size.name) : [...prev, size.name]
                           )}
                           className={cn(
                             "h-10 w-12 rounded border text-sm font-medium transition-all",
-                            selectedSizes.includes(size)
+                            selectedSizes.includes(size.name)
                               ? "border-primary bg-primary text-primary-foreground"
                               : "border-border hover:border-primary"
                           )}
                         >
-                          {size}
+                          {size.name}
                         </button>
                       ))}
                     </div>
@@ -169,9 +171,9 @@ export default function CollectionLayout({
                   <div className="mb-8">
                     <h4 className="font-medium mb-4">Color</h4>
                     <div className="flex flex-wrap gap-2">
-                      {colors.map((color) => (
+                      {filters.colors.map((color) => (
                         <button
-                          key={color.name}
+                          key={color.id}
                           onClick={() => setSelectedColors((prev) =>
                             prev.includes(color.name) ? prev.filter((c) => c !== color.name) : [...prev, color.name]
                           )}

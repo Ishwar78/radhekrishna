@@ -884,56 +884,82 @@ export default function ProductDetail() {
                 <div className="animate-spin">⏳</div>
                 <span className="ml-2 text-muted-foreground">Loading size chart...</span>
               </div>
-            ) : sizeChart && sizeChart.sizes && sizeChart.sizes.length > 0 ? (
-              <div className="space-y-4">
-                <div className="text-sm text-muted-foreground mb-4">
-                  Measurements in {sizeChart.unit}
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse">
-                    <thead>
-                      <tr className="bg-muted">
-                        <th className="border border-border px-4 py-2 text-left font-semibold">Size</th>
-                        {sizeChart.sizes[0]?.measurements.map((m: any, i: number) => (
-                          <th
-                            key={i}
-                            className="border border-border px-4 py-2 text-left font-semibold"
-                          >
-                            {m.name}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {sizeChart.sizes.map((size: any, sizeIndex: number) => (
-                        <tr
-                          key={sizeIndex}
-                          className={sizeIndex % 2 === 0 ? "bg-background" : "bg-muted/30"}
-                        >
-                          <td className="border border-border px-4 py-3 font-semibold">
-                            {size.label}
-                          </td>
-                          {size.measurements.map((m: any, mIndex: number) => (
-                            <td
-                              key={mIndex}
-                              className="border border-border px-4 py-3"
+            ) : sizeChart && (sizeChart.chartImage || (sizeChart.sizes && sizeChart.sizes.length > 0)) ? (
+              <div className="space-y-6">
+                {/* Chart Image */}
+                {sizeChart.chartImage && (
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg">Size Chart Image</h3>
+                    <div className="w-full max-w-md mx-auto rounded-lg border border-border overflow-hidden bg-muted/50">
+                      <img
+                        src={sizeChart.chartImage}
+                        alt="Size Chart"
+                        className="w-full h-auto max-h-96 object-contain"
+                        onError={(e) => {
+                          console.error('Error loading size chart image');
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                        onLoad={() => {
+                          console.log('Size chart image loaded successfully');
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Measurements Table */}
+                {sizeChart.sizes && sizeChart.sizes.length > 0 && (
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-lg">Measurements ({sizeChart.unit})</h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse">
+                        <thead>
+                          <tr className="bg-muted">
+                            <th className="border border-border px-4 py-2 text-left font-semibold">Size</th>
+                            {sizeChart.sizes[0]?.measurements.map((m: any, i: number) => (
+                              <th
+                                key={i}
+                                className="border border-border px-4 py-2 text-left font-semibold"
+                              >
+                                {m.name}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {sizeChart.sizes.map((size: any, sizeIndex: number) => (
+                            <tr
+                              key={sizeIndex}
+                              className={sizeIndex % 2 === 0 ? "bg-background" : "bg-muted/30"}
                             >
-                              {m.value} {sizeChart.unit}
-                            </td>
+                              <td className="border border-border px-4 py-3 font-semibold">
+                                {size.label}
+                              </td>
+                              {size.measurements.map((m: any, mIndex: number) => (
+                                <td
+                                  key={mIndex}
+                                  className="border border-border px-4 py-3"
+                                >
+                                  {m.value} {sizeChart.unit}
+                                </td>
+                              ))}
+                            </tr>
                           ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="text-sm text-muted-foreground mt-4 p-3 bg-muted/30 rounded">
-                  <p className="font-semibold mb-1">How to measure:</p>
-                  <ul className="space-y-1 list-disc list-inside">
-                    <li>Chest: Measure across the bust at the fullest point</li>
-                    <li>Waist: Measure at the natural waistline</li>
-                    <li>Length: Measure from shoulder to desired hemline</li>
-                  </ul>
-                </div>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="text-sm text-muted-foreground mt-4 p-3 bg-muted/30 rounded">
+                      <p className="font-semibold mb-1">💡 How to measure:</p>
+                      <ul className="space-y-1 list-disc list-inside">
+                        <li>Chest: Measure across the bust at the fullest point</li>
+                        <li>Waist: Measure at the natural waistline</li>
+                        <li>Length: Measure from shoulder to desired hemline</li>
+                        <li>Sleeve: Measure from shoulder to wrist</li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="text-center py-8 text-muted-foreground">

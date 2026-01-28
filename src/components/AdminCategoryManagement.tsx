@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, Edit, Trash2, FolderTree, Layers, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, FolderTree, Layers, Loader2, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -174,6 +174,57 @@ const AdminCategoryManagement = () => {
     setIsDialogOpen(false);
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error("Please upload an image file");
+      return;
+    }
+
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("File size must be less than 2MB");
+      return;
+    }
+
+    try {
+      // Convert file to base64
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target?.result as string;
+
+        // Compress image using canvas if it's larger than 500KB
+        if (base64.length > 500 * 1024) {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            // Reduce dimensions by 60% for thumbnails
+            canvas.width = img.width * 0.6;
+            canvas.height = img.height * 0.6;
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+            setFormData({ ...formData, image: compressedBase64 });
+            toast.success("Image uploaded and compressed");
+          };
+          img.src = base64;
+        } else {
+          setFormData({ ...formData, image: base64 });
+          toast.success("Image uploaded successfully");
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      toast.error("Failed to upload image");
+    }
+  };
+
   const handleEdit = (category: Category) => {
     setEditingCategory(category);
     setFormData({
@@ -306,14 +357,13 @@ const AdminCategoryManagement = () => {
               <div className="space-y-2">
                 <Label htmlFor="parent">Parent Category</Label>
                 <Select
-                  value={formData.parentId || ""}
-                  onValueChange={(value) => setFormData({ ...formData, parentId: value || "" })}
+                  value={formData.parentId}
+                  onValueChange={(value) => setFormData({ ...formData, parentId: value })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select parent (optional)" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">None (Top Level)</SelectItem>
                     {parentCategories
                       .filter(cat => {
                         if (!editingCategory) return true;
@@ -341,29 +391,67 @@ const AdminCategoryManagement = () => {
               <div className="space-y-2">
                 <Label htmlFor="image">Category Image</Label>
                 <div className="space-y-3">
-                  <Input
-                    id="image"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="https://example.com/image.jpg"
-                    type="url"
-                  />
-                  {formData.image && (
-                    <div className="relative w-full h-40 rounded-lg overflow-hidden border border-border bg-muted/50">
-                      <img
-                        src={formData.image}
-                        alt="Category preview"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                        }}
-                      />
-                    </div>
-                  )}
-                  <p className="text-xs text-muted-foreground">
-                    Paste image URL (PNG, JPG, JPEG) - images will be displayed as circular collections
-                  </p>
+                  {/* Upload Section */}
+                  <div className="border-2 border-dashed rounded-lg p-4 text-center">
+                    {formData.image ? (
+                      <div className="space-y-2">
+                        <div className="relative w-full h-40 rounded-lg overflow-hidden border border-border bg-muted/50">
+                          <img
+                            src={formData.image}
+                            alt="Category preview"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                            }}
+                          />
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setFormData({ ...formData, image: "" })}
+                        >
+                          <X className="h-4 w-4 mr-2" />
+                          Remove Image
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <Upload className="h-8 w-8 mx-auto text-muted-foreground" />
+                        <Label htmlFor="category-image" className="cursor-pointer">
+                          <span className="text-sm font-medium text-primary hover:underline">
+                            Click to upload
+                          </span>
+                          <span className="text-xs text-muted-foreground"> or drag and drop</span>
+                        </Label>
+                        <p className="text-xs text-muted-foreground">
+                          PNG, JPG, GIF up to 2MB
+                        </p>
+                        <Input
+                          id="category-image"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleImageUpload}
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* URL Input (Optional) */}
+                  <div className="pt-2 border-t">
+                    <Label htmlFor="image-url" className="text-xs text-muted-foreground mb-2 block">
+                      Or paste image URL (optional)
+                    </Label>
+                    <Input
+                      id="image-url"
+                      value={formData.image.startsWith('http') ? formData.image : ""}
+                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                      placeholder="https://example.com/image.jpg"
+                      type="url"
+                    />
+                  </div>
                 </div>
               </div>
               
