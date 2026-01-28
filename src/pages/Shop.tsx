@@ -302,9 +302,9 @@ export default function Shop() {
                   <div className="mb-8">
                     <h4 className="font-medium mb-4">Color</h4>
                     <div className="flex flex-wrap gap-2">
-                      {colors.map((color) => (
+                      {filters.colors.map((color) => (
                         <button
-                          key={color.name}
+                          key={color.id}
                           onClick={() => setSelectedColors((prev) =>
                             prev.includes(color.name) ? prev.filter((c) => c !== color.name) : [...prev, color.name]
                           )}
