@@ -38,7 +38,7 @@ router.get('/product/:productId', async (req, res) => {
 router.post('/product/:productId', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const { productId: productIdParam } = req.params;
-    const { sizes, unit } = req.body;
+    const { sizes, unit, chartImage } = req.body;
 
     // Convert string to ObjectId if valid
     const productId = mongoose.Types.ObjectId.isValid(productIdParam)
@@ -51,6 +51,7 @@ router.post('/product/:productId', authMiddleware, adminMiddleware, async (req, 
       // Update existing
       sizeChart.sizes = sizes;
       if (unit) sizeChart.unit = unit;
+      if (chartImage !== undefined) sizeChart.chartImage = chartImage;
       sizeChart.updatedAt = new Date();
       await sizeChart.save();
     } else {
@@ -58,7 +59,8 @@ router.post('/product/:productId', authMiddleware, adminMiddleware, async (req, 
       sizeChart = new SizeChart({
         productId,
         sizes,
-        unit: unit || 'cm'
+        unit: unit || 'cm',
+        chartImage: chartImage || null
       });
       await sizeChart.save();
     }
