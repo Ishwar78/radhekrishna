@@ -20,8 +20,8 @@ interface ChatbotSettings {
   isActive: boolean;
 }
 
-const QuickQuestions = [
-  { label: "Store timing?", reply: "Our store is open Monday to Saturday, 10:00 AM - 7:00 PM. Sunday is closed. You can shop online 24/7!" },
+const getQuickQuestions = (settings: ChatbotSettings | null) => [
+  { label: "Store timing?", reply: `Our store hours are:\n${settings?.storeHours || 'Monday - Saturday: 10:00 AM - 7:00 PM\nSunday: Closed'}\n\nYou can shop online 24/7!` },
   { label: "Delivery charges?", reply: "We offer free delivery on orders above ₹999. Standard delivery takes 5-7 business days. Express delivery is also available." },
   { label: "Return policy?", reply: "You can return items within 7 days of purchase if they are unused and in original packaging. Please contact our support team for the return process." },
   { label: "Payment options?", reply: "We accept Credit Cards, Debit Cards, UPI, Net Banking, and Cash on Delivery (COD). All payments are secure and encrypted." },
