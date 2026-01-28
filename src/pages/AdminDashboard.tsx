@@ -153,6 +153,7 @@ export default function AdminDashboard() {
     { value: 'orders', label: 'Orders' },
     { value: 'tickets', label: 'Tickets' },
     { value: 'inquiries', label: 'Inquiries' },
+    { value: 'chatbot', label: 'Chatbot' },
     { value: 'contact', label: 'Contact' },
     { value: 'settings', label: 'Settings' },
   ];
