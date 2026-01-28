@@ -180,7 +180,7 @@ const AdminCategoryManagement = () => {
       name: category.name,
       slug: category.slug,
       description: category.description,
-      parentId: category.parentId || "",
+      parentId: category.parentId ? category.parentId : "",
       image: category.image,
       isActive: category.isActive
     });
