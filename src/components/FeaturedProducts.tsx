@@ -191,7 +191,7 @@ export default function FeaturedProducts() {
         }
       } catch (error) {
         if (error instanceof Error && error.name === 'AbortError') {
-          console.warn('Featured products fetch timeout');
+          // Request timeout - silently fail and show empty state
         } else {
           console.error('Error fetching products:', error instanceof Error ? error.message : error);
         }
