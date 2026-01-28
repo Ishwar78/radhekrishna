@@ -23,6 +23,7 @@ import productSectionsRoutes from './routes/productSections.js';
 import sectionSettingsRoutes from './routes/sectionSettings.js';
 import filtersRoutes from './routes/filters.js';
 import inquiryRoutes from './routes/inquiry.js';
+import chatbotSettingsRoutes from './routes/chatbotSettings.js';
 import User from './models/User.js';
 import Contact from './models/Contact.js';
 import HeroMedia from './models/HeroMedia.js';
@@ -242,6 +243,7 @@ app.use('/api/collections', collectionsRoutes);
 app.use('/api/product-sections', productSectionsRoutes);
 app.use('/api/section-settings', sectionSettingsRoutes);
 app.use('/api/inquiries', inquiryRoutes);
+app.use('/api/chatbot-settings', chatbotSettingsRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

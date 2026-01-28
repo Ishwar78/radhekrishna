@@ -61,8 +61,8 @@ router.post('/', authMiddleware, async (req, res) => {
       },
       paymentMethod,
       paymentDetails: paymentDetails || undefined,
-      notes,
-      status: 'confirmed'
+      notes
+      // Status will default to 'pending' - Admin must confirm the order
     });
 
     await order.save();

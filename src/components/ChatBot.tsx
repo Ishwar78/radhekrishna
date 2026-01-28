@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -9,31 +9,85 @@ interface Message {
   timestamp: Date;
 }
 
-const QuickQuestions = [
-  { label: "Store timing?", reply: "Our store is open Monday to Saturday, 10:00 AM - 7:00 PM. Sunday is closed. You can shop online 24/7!" },
+interface ChatbotSettings {
+  businessName: string;
+  welcomeMessage: string;
+  supportEmail: string;
+  supportPhone: string;
+  whatsappNumber: string;
+  genericReply: string;
+  storeHours: string;
+  isActive: boolean;
+}
+
+const getQuickQuestions = (settings: ChatbotSettings | null) => [
+  { label: "Store timing?", reply: `Our store hours are:\n${settings?.storeHours || 'Monday - Saturday: 10:00 AM - 7:00 PM\nSunday: Closed'}\n\nYou can shop online 24/7!` },
   { label: "Delivery charges?", reply: "We offer free delivery on orders above ₹999. Standard delivery takes 5-7 business days. Express delivery is also available." },
   { label: "Return policy?", reply: "You can return items within 7 days of purchase if they are unused and in original packaging. Please contact our support team for the return process." },
   { label: "Payment options?", reply: "We accept Credit Cards, Debit Cards, UPI, Net Banking, and Cash on Delivery (COD). All payments are secure and encrypted." },
   { label: "How to track my order?", reply: "Once your order is shipped, you'll receive a tracking link via email and SMS. You can track your order in real-time." },
   { label: "Do you have size guides?", reply: "Yes! We have detailed size guides for all products. Check the size chart on each product page to find your perfect fit." },
   { label: "Can I cancel my order?", reply: "You can cancel your order within 24 hours of placement. After that, if the order has been shipped, you can return it." },
-  { label: "Bulk orders?", reply: "Yes, we offer special discounts on bulk orders. Please contact our support team at support@vasstra.com for bulk inquiries." },
+  { label: "Bulk orders?", reply: "Yes, we offer special discounts on bulk orders. Please contact our support team for bulk inquiries." },
 ];
-
-const WelcomeMessage = "Namaste! 🙏 Welcome to Shree Balaji Vastralaya. I'm here to help you with any questions about our products, delivery, or orders. Choose one of the quick questions below or type your message!";
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "welcome",
-      text: WelcomeMessage,
-      sender: "bot",
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [settings, setSettings] = useState<ChatbotSettings | null>(null);
+  const [settingsLoading, setSettingsLoading] = useState(true);
+
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
+
+  // Fetch chatbot settings
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch(`${API_URL}/chatbot-settings`);
+        const data = await response.json();
+        if (data.success) {
+          setSettings(data.settings);
+          // Initialize messages with welcome message
+          setMessages([
+            {
+              id: "welcome",
+              text: data.settings.welcomeMessage,
+              sender: "bot",
+              timestamp: new Date(),
+            },
+          ]);
+        }
+      } catch (error) {
+        console.error('Error fetching chatbot settings:', error);
+        // Use default settings on error
+        const defaultSettings: ChatbotSettings = {
+          businessName: 'Shree RadheKrishna Collection',
+          welcomeMessage: 'Namaste! 🙏 Welcome to our store. I\'m here to help you with any questions.',
+          supportEmail: 'support@vasstra.com',
+          supportPhone: '+91 98765 43210',
+          whatsappNumber: '919876543210',
+          genericReply: 'Thanks for your message! Our team will get back to you shortly.',
+          storeHours: 'Monday - Saturday: 10:00 AM - 7:00 PM',
+          isActive: true,
+        };
+        setSettings(defaultSettings);
+        setMessages([
+          {
+            id: "welcome",
+            text: defaultSettings.welcomeMessage,
+            sender: "bot",
+            timestamp: new Date(),
+          },
+        ]);
+      } finally {
+        setSettingsLoading(false);
+      }
+    };
+
+    fetchSettings();
+  }, [API_URL]);
 
   const handleQuickQuestion = (question: string, reply: string) => {
     // Add user message
@@ -75,9 +129,10 @@ export default function ChatBot() {
     // Simulate bot thinking and send a generic response
     setIsLoading(true);
     setTimeout(() => {
+      const reply = settings?.genericReply?.replace('{email}', settings?.supportEmail || 'support@vasstra.com').replace('{whatsapp}', `WhatsApp ${settings?.supportPhone || '+91 98765 43210'}`) || 'Thanks for your message! Our team will get back to you shortly.';
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Thanks for your message! Our team will get back to you shortly. For immediate assistance, please contact us at support@vasstra.com or WhatsApp +91 98765 43210.",
+        text: reply,
         sender: "bot",
         timestamp: new Date(),
       };
@@ -112,7 +167,7 @@ export default function ChatBot() {
         <div className="fixed bottom-40 right-6 w-96 bg-white rounded-lg shadow-2xl flex flex-col z-40 max-h-[600px] animate-in fade-in slide-in-from-bottom-4 duration-300">
           {/* Chat Header */}
           <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-4 rounded-t-lg">
-            <h3 className="font-semibold text-lg">Shree Balaji Vastralaya</h3>
+            <h3 className="font-semibold text-lg">{settings?.businessName || 'Shree RadheKrishna Collection'}</h3>
             <p className="text-xs text-emerald-100">Usually replies instantly</p>
           </div>
 
@@ -174,7 +229,7 @@ export default function ChatBot() {
             <div className="px-4 py-3 bg-white border-t border-gray-200">
               <p className="text-xs font-semibold text-gray-700 mb-2">Quick questions:</p>
               <div className="grid grid-cols-2 gap-2">
-                {QuickQuestions.map((q, idx) => (
+                {getQuickQuestions(settings).map((q, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleQuickQuestion(q.label, q.reply)}

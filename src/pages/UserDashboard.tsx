@@ -19,6 +19,7 @@ import InvoiceDisplay from "@/components/InvoiceDisplay";
 import { format } from "date-fns";
 
 const statusColors: Record<string, string> = {
+  pending: "bg-orange-500/10 text-orange-600 border-orange-500/20",
   confirmed: "bg-blue-500/10 text-blue-600 border-blue-500/20",
   processing: "bg-yellow-500/10 text-yellow-600 border-yellow-500/20",
   shipped: "bg-purple-500/10 text-purple-600 border-purple-500/20",
@@ -289,6 +290,25 @@ export default function UserDashboard() {
                               </p>
                             )}
                             {order.shippingAddress.phone && <p>Phone: {order.shippingAddress.phone}</p>}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Payment Details Section */}
+                      {order.paymentMethod && (
+                        <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 mb-4">
+                          <h4 className="font-semibold text-sm mb-3 text-foreground">Payment Details</h4>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                              <p className="text-muted-foreground">Payment Method:</p>
+                              <p className="font-medium capitalize">{order.paymentMethod?.replace('_', ' ')}</p>
+                            </div>
+                            {order.paymentMethod === 'upi' && order.paymentDetails?.transactionId && (
+                              <div className="flex justify-between">
+                                <p className="text-muted-foreground">Transaction ID *:</p>
+                                <p className="font-mono font-semibold text-foreground break-all">{order.paymentDetails.transactionId}</p>
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}

@@ -39,6 +39,7 @@ import AdminSectionSettingsManagement from "@/components/AdminSectionSettingsMan
 import AdminFilterManagement from "@/components/AdminFilterManagement";
 import AdminSidebarVideoManagement from "@/components/AdminSidebarVideoManagement";
 import AdminInquiryManagement from "@/components/AdminInquiryManagement";
+import AdminChatbotManagement from "@/components/AdminChatbotManagement";
 
 interface DashboardStats {
   totalUsers: number;
@@ -152,6 +153,7 @@ export default function AdminDashboard() {
     { value: 'orders', label: 'Orders' },
     { value: 'tickets', label: 'Tickets' },
     { value: 'inquiries', label: 'Inquiries' },
+    { value: 'chatbot', label: 'Chatbot' },
     { value: 'contact', label: 'Contact' },
     { value: 'settings', label: 'Settings' },
   ];
@@ -769,6 +771,8 @@ export default function AdminDashboard() {
                                     ? 'bg-red-100 text-red-800'
                                     : order.status === 'shipped'
                                     ? 'bg-purple-100 text-purple-800'
+                                    : order.status === 'pending'
+                                    ? 'bg-orange-100 text-orange-800'
                                     : 'bg-blue-100 text-blue-800'
                                 }`}>
                                   {order.status}
@@ -807,6 +811,11 @@ export default function AdminDashboard() {
             {/* Inquiries Tab */}
             <TabsContent value="inquiries" className="space-y-6">
               <AdminInquiryManagement />
+            </TabsContent>
+
+            {/* Chatbot Tab */}
+            <TabsContent value="chatbot" className="space-y-6">
+              <AdminChatbotManagement />
             </TabsContent>
 
             {/* Contact Tab */}
@@ -970,6 +979,8 @@ export default function AdminDashboard() {
                           ? 'bg-red-100 text-red-800'
                           : selectedOrder.status === 'shipped'
                           ? 'bg-purple-100 text-purple-800'
+                          : selectedOrder.status === 'pending'
+                          ? 'bg-orange-100 text-orange-800'
                           : 'bg-blue-100 text-blue-800'
                       }`}>
                         {selectedOrder.status.charAt(0).toUpperCase() + selectedOrder.status.slice(1)}
@@ -984,6 +995,14 @@ export default function AdminDashboard() {
                       <p className="font-semibold text-lg">₹{selectedOrder.totalAmount?.toLocaleString()}</p>
                     </div>
                   </div>
+
+                  {/* Transaction ID for UPI */}
+                  {selectedOrder.paymentMethod === 'upi' && selectedOrder.paymentDetails?.transactionId && (
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <p className="text-muted-foreground text-xs font-medium mb-2">TRANSACTION ID *</p>
+                      <p className="font-mono font-semibold text-foreground break-all">{selectedOrder.paymentDetails.transactionId}</p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Order Items */}
