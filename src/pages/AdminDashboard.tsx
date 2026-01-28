@@ -811,6 +811,11 @@ export default function AdminDashboard() {
               <AdminInquiryManagement />
             </TabsContent>
 
+            {/* Chatbot Tab */}
+            <TabsContent value="chatbot" className="space-y-6">
+              <AdminChatbotManagement />
+            </TabsContent>
+
             {/* Contact Tab */}
             <TabsContent value="contact" className="space-y-6">
               <AdminContactManagement />
