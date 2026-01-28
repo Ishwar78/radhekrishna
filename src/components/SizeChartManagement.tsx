@@ -221,26 +221,51 @@ export default function SizeChartManagement() {
       return;
     }
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
+    // Validate file size (max 2MB for better performance)
+    if (file.size > 2 * 1024 * 1024) {
       toast({
         title: "Error",
-        description: "File size must be less than 5MB",
+        description: "File size must be less than 2MB",
         variant: "destructive",
       });
       return;
     }
 
     try {
-      // Convert file to base64
+      // Convert file to base64 and compress
       const reader = new FileReader();
       reader.onload = (event) => {
         const base64 = event.target?.result as string;
-        setChartImage(base64);
-        toast({
-          title: "Success",
-          description: "Image uploaded successfully",
-        });
+
+        // Compress image using canvas if it's larger than 500KB
+        if (base64.length > 500 * 1024) {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            // Reduce dimensions by 50%
+            canvas.width = img.width * 0.75;
+            canvas.height = img.height * 0.75;
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // Convert to JPEG with lower quality
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+            setChartImage(compressedBase64);
+            toast({
+              title: "Success",
+              description: "Image uploaded and compressed successfully",
+            });
+          };
+          img.src = base64;
+        } else {
+          setChartImage(base64);
+          toast({
+            title: "Success",
+            description: "Image uploaded successfully",
+          });
+        }
       };
       reader.readAsDataURL(file);
     } catch (error) {
