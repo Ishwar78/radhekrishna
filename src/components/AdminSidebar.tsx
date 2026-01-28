@@ -97,6 +97,7 @@ const adminSections: SidebarItem[] = [
   { title: "Transactions", icon: BarChart3, href: "/admin?tab=transactions" },
   { title: "Tickets", icon: Ticket, href: "/admin?tab=tickets" },
   { title: "Inquiries", icon: MessageCircle, href: "/admin?tab=inquiries" },
+  { title: "Chatbot", icon: Bot, href: "/admin?tab=chatbot" },
   { title: "Contact", icon: Phone, href: "/admin?tab=contact" },
   { title: "Settings", icon: Settings, href: "/admin?tab=settings" },
 ];
