@@ -69,6 +69,7 @@ const Index = () => {
         </main>
         <Footer />
         <WhatsAppButton />
+        <ChatBot />
         <FloatingSidebarVideo />
       </div>
     </>
