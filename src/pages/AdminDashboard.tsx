@@ -39,6 +39,7 @@ import AdminSectionSettingsManagement from "@/components/AdminSectionSettingsMan
 import AdminFilterManagement from "@/components/AdminFilterManagement";
 import AdminSidebarVideoManagement from "@/components/AdminSidebarVideoManagement";
 import AdminInquiryManagement from "@/components/AdminInquiryManagement";
+import AdminChatbotManagement from "@/components/AdminChatbotManagement";
 
 interface DashboardStats {
   totalUsers: number;
