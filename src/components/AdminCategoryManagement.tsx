@@ -315,9 +315,12 @@ const AdminCategoryManagement = () => {
                   <SelectContent>
                     <SelectItem value="">None (Top Level)</SelectItem>
                     {parentCategories
-                      .filter(cat => cat.id !== editingCategory?.id)
+                      .filter(cat => {
+                        if (!editingCategory) return true;
+                        return cat._id !== editingCategory._id && cat.id !== editingCategory.id;
+                      })
                       .map(cat => (
-                        <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
+                        <SelectItem key={cat._id} value={cat._id}>{cat.name}</SelectItem>
                       ))
                     }
                   </SelectContent>
