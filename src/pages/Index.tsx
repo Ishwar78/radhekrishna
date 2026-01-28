@@ -14,6 +14,7 @@ import AvailableCoupons from "@/components/AvailableCoupons";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import FloatingSidebarVideo from "@/components/FloatingSidebarVideo";
+import ChatBot from "@/components/ChatBot";
 const Index = () => {
   return (
     <>
