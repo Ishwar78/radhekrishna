@@ -230,7 +230,11 @@ const AdminCategoryManagement = () => {
           'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          ...category,
+          name: category.name,
+          slug: category.slug,
+          description: category.description,
+          parentId: category.parentId || null,
+          image: category.image,
           isActive: !category.isActive,
         }),
       });
