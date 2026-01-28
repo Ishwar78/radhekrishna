@@ -33,16 +33,61 @@ const QuickQuestions = [
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "welcome",
-      text: WelcomeMessage,
-      sender: "bot",
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [settings, setSettings] = useState<ChatbotSettings | null>(null);
+  const [settingsLoading, setSettingsLoading] = useState(true);
+
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
+
+  // Fetch chatbot settings
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch(`${API_URL}/chatbot-settings`);
+        const data = await response.json();
+        if (data.success) {
+          setSettings(data.settings);
+          // Initialize messages with welcome message
+          setMessages([
+            {
+              id: "welcome",
+              text: data.settings.welcomeMessage,
+              sender: "bot",
+              timestamp: new Date(),
+            },
+          ]);
+        }
+      } catch (error) {
+        console.error('Error fetching chatbot settings:', error);
+        // Use default settings on error
+        const defaultSettings: ChatbotSettings = {
+          businessName: 'Shree RadheKrishna Collection',
+          welcomeMessage: 'Namaste! 🙏 Welcome to our store. I\'m here to help you with any questions.',
+          supportEmail: 'support@vasstra.com',
+          supportPhone: '+91 98765 43210',
+          whatsappNumber: '919876543210',
+          genericReply: 'Thanks for your message! Our team will get back to you shortly.',
+          storeHours: 'Monday - Saturday: 10:00 AM - 7:00 PM',
+          isActive: true,
+        };
+        setSettings(defaultSettings);
+        setMessages([
+          {
+            id: "welcome",
+            text: defaultSettings.welcomeMessage,
+            sender: "bot",
+            timestamp: new Date(),
+          },
+        ]);
+      } finally {
+        setSettingsLoading(false);
+      }
+    };
+
+    fetchSettings();
+  }, [API_URL]);
 
   const handleQuickQuestion = (question: string, reply: string) => {
     // Add user message
