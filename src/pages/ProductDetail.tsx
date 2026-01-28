@@ -890,11 +890,11 @@ export default function ProductDetail() {
                 {sizeChart.chartImage && (
                   <div className="space-y-2">
                     <h3 className="font-semibold text-lg">Size Chart Image</h3>
-                    <div className="w-full rounded-lg border border-border overflow-hidden bg-muted/50">
+                    <div className="w-full max-w-md mx-auto rounded-lg border border-border overflow-hidden bg-muted/50">
                       <img
                         src={sizeChart.chartImage}
                         alt="Size Chart"
-                        className="w-full h-auto object-contain"
+                        className="w-full h-auto max-h-96 object-contain"
                         onError={(e) => {
                           console.error('Error loading size chart image');
                           const target = e.target as HTMLImageElement;
