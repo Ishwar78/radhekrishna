@@ -678,21 +678,30 @@ export default function ProductDetail() {
 
                 {/* Trust Indicators */}
                 <div className="grid grid-cols-3 gap-4 py-6 border-y border-border">
-                  <div className="flex flex-col items-center text-center">
+                  <button
+                    onClick={() => setOpenModal('shipping')}
+                    className="flex flex-col items-center text-center hover:opacity-75 transition-opacity cursor-pointer"
+                  >
                     <Truck className="h-6 w-6 text-gold mb-2" />
                     <span className="text-sm font-medium">Free Shipping</span>
                     <span className="text-xs text-muted-foreground">Above ₹999</span>
-                  </div>
-                  <div className="flex flex-col items-center text-center">
+                  </button>
+                  <button
+                    onClick={() => setOpenModal('payment')}
+                    className="flex flex-col items-center text-center hover:opacity-75 transition-opacity cursor-pointer"
+                  >
                     <Shield className="h-6 w-6 text-gold mb-2" />
                     <span className="text-sm font-medium">Secure Payment</span>
                     <span className="text-xs text-muted-foreground">100% Safe</span>
-                  </div>
-                  <div className="flex flex-col items-center text-center">
+                  </button>
+                  <button
+                    onClick={() => setOpenModal('returns')}
+                    className="flex flex-col items-center text-center hover:opacity-75 transition-opacity cursor-pointer"
+                  >
                     <RotateCcw className="h-6 w-6 text-gold mb-2" />
                     <span className="text-sm font-medium">Easy Returns</span>
                     <span className="text-xs text-muted-foreground">7 Days</span>
-                  </div>
+                  </button>
                 </div>
 
                 {/* Policy Notice */}
