@@ -109,6 +109,7 @@ const App = () => (
                   </Routes>
                   <CartDrawer />
                   <InstallPWA />
+                  <ChatBot />
                 </BrowserRouter>
               </TooltipProvider>
             </WishlistProvider>
