@@ -143,17 +143,40 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Social Links */}
             <div className="flex items-center gap-4">
-              <span className="text-primary-foreground/70 text-sm">Follow us:</span>
+              <span className="text-primary-foreground/70 text-sm">Share & Follow page for more:</span>
               <div className="flex gap-3">
-                {[Facebook, Instagram, Twitter, Youtube].map((Icon, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="h-10 w-10 rounded-full border border-primary-foreground/20 flex items-center justify-center text-primary-foreground/70 hover:text-gold hover:border-gold transition-colors"
-                  >
-                    <Icon className="h-5 w-5" />
-                  </a>
-                ))}
+                <a
+                  href="https://www.facebook.com/share/17nXrxJbYA/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-10 w-10 rounded-full border border-primary-foreground/20 flex items-center justify-center text-primary-foreground/70 hover:text-gold hover:border-gold transition-colors"
+                  title="Follow us on Facebook"
+                >
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://www.instagram.com/shreeradhekrishnacollection97?igsh=MWt6dDk0NmR5ZDBxbw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-10 w-10 rounded-full border border-primary-foreground/20 flex items-center justify-center text-primary-foreground/70 hover:text-gold hover:border-gold transition-colors"
+                  title="Follow us on Instagram"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a
+                  href="#"
+                  className="h-10 w-10 rounded-full border border-primary-foreground/20 flex items-center justify-center text-primary-foreground/70 hover:text-gold hover:border-gold transition-colors"
+                  title="Follow us on Twitter"
+                >
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a
+                  href="#"
+                  className="h-10 w-10 rounded-full border border-primary-foreground/20 flex items-center justify-center text-primary-foreground/70 hover:text-gold hover:border-gold transition-colors"
+                  title="Follow us on YouTube"
+                >
+                  <Youtube className="h-5 w-5" />
+                </a>
               </div>
             </div>
 

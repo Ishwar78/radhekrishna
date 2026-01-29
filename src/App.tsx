@@ -9,6 +9,7 @@ import { WishlistProvider } from "@/contexts/WishlistContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { OrderProvider } from "@/contexts/OrderContext";
 import CartDrawer from "@/components/CartDrawer";
+import ChatBot from "@/components/ChatBot";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -108,6 +109,7 @@ const App = () => (
                   </Routes>
                   <CartDrawer />
                   <InstallPWA />
+                  <ChatBot />
                 </BrowserRouter>
               </TooltipProvider>
             </WishlistProvider>
