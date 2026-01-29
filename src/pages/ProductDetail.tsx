@@ -100,6 +100,7 @@ export default function ProductDetail() {
   const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
   const [sizeChart, setSizeChart] = useState<any>(null);
   const [isSizeChartLoading, setIsSizeChartLoading] = useState(false);
+  const [openModal, setOpenModal] = useState<'shipping' | 'payment' | 'returns' | null>(null);
 
   // Fetch product from API
   useEffect(() => {
