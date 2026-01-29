@@ -982,6 +982,108 @@ export default function ProductDetail() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Free Shipping Modal */}
+      <Dialog open={openModal === 'shipping'} onOpenChange={() => setOpenModal(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Truck className="h-6 w-6 text-gold" />
+              Free Shipping
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <p className="text-foreground font-medium">We offer free shipping on all orders above ₹999!</p>
+            <div className="space-y-3 text-sm text-muted-foreground">
+              <div>
+                <p className="font-medium text-foreground mb-1">📦 Delivery Time</p>
+                <p>Standard delivery: 5-7 business days</p>
+                <p>Express delivery: 2-3 business days (additional charges may apply)</p>
+              </div>
+              <div>
+                <p className="font-medium text-foreground mb-1">✅ Order Tracking</p>
+                <p>You'll receive a tracking number via email after your order ships.</p>
+              </div>
+              <div>
+                <p className="font-medium text-foreground mb-1">🎁 Minimum Order</p>
+                <p>Free shipping applies to orders ₹999 and above. For orders below ₹999, a flat shipping charge of ₹99 applies.</p>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Secure Payment Modal */}
+      <Dialog open={openModal === 'payment'} onOpenChange={() => setOpenModal(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Shield className="h-6 w-6 text-gold" />
+              Secure Payment
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <p className="text-foreground font-medium">Your payment is 100% secure with us.</p>
+            <div className="space-y-3 text-sm text-muted-foreground">
+              <div>
+                <p className="font-medium text-foreground mb-1">🔒 Payment Security</p>
+                <p>We use industry-leading encryption (SSL) to protect your payment information.</p>
+              </div>
+              <div>
+                <p className="font-medium text-foreground mb-1">💳 Accepted Payment Methods</p>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>Credit/Debit Cards (Visa, Mastercard, American Express)</li>
+                  <li>UPI (Google Pay, PhonePe, Paytm, BHIM)</li>
+                  <li>Net Banking</li>
+                  <li>Digital Wallets</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-medium text-foreground mb-1">🛡️ Buyer Protection</p>
+                <p>Your transaction is protected by secure payment gateways. If there's any issue, we'll resolve it quickly.</p>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Easy Returns Modal */}
+      <Dialog open={openModal === 'returns'} onOpenChange={() => setOpenModal(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <RotateCcw className="h-6 w-6 text-gold" />
+              Easy Returns
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <p className="text-foreground font-medium">Simple and hassle-free return process.</p>
+            <div className="space-y-3 text-sm text-muted-foreground">
+              <div>
+                <p className="font-medium text-foreground mb-1">📅 Return Window</p>
+                <p>You have 7 days from the date of delivery to initiate a return.</p>
+              </div>
+              <div>
+                <p className="font-medium text-foreground mb-1">✨ Condition Requirements</p>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>Product must be unused and in original condition</li>
+                  <li>All tags and packaging must be intact</li>
+                  <li>Return authorization must be obtained before shipping</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-medium text-foreground mb-1">💰 Refund Process</p>
+                <p>Once we receive and verify the returned item, refunds are processed within 5-7 business days.</p>
+              </div>
+              <div className="bg-destructive/10 border border-destructive/30 rounded p-3 mt-2">
+                <p className="text-xs font-medium">
+                  <strong>Note:</strong> No Return | No Exchange | No COD policy applies to this store.
+                </p>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
