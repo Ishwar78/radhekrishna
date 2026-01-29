@@ -318,8 +318,7 @@ export default function Checkout() {
         total,
         totalAmount: total,
         shippingAddress,
-        paymentDetails,
-      }, paymentMethod);
+      }, paymentMethod, paymentDetails);
 
       setOrderId(newOrderId);
       setIsProcessing(false);
